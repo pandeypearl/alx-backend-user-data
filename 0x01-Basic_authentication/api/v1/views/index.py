@@ -18,7 +18,8 @@ def status() -> str:
 def unauthorized() -> str:
     """
     GET /api/v1/unauthorized
-    Return: - Error
+    Return: 
+      - Error
     """
     return abort(401)
 
@@ -27,7 +28,8 @@ def unauthorized() -> str:
 def forbidden() -> str:
     """
     GET /api/v1/forbidden
-    Return: - Error
+    Return:
+      - Error
     """
     return abort(403)
 
