@@ -11,7 +11,7 @@ from datetime import datetime, timedelta
 class SessionExpAuth(SessionAuth):
     """
     Inherits from SessionAuth
-    Adds expiration date to session Id
+    Created to add an expiration date to a Session ID
     """
 
     def __init__(self):
@@ -29,7 +29,7 @@ class SessionExpAuth(SessionAuth):
 
     def create_session(self, user_id=None):
         """
-        Creating a session
+        Creates a session
         """
         session_id = super().create_session(user_id)
         if not session_id:
@@ -49,7 +49,7 @@ class SessionExpAuth(SessionAuth):
             return None
         if self.session_duration <= 0:
             return self.user_id_by_session_id[session_id]["user_id"]
-        if "created_at" not in self.user_id_by_session_id["session_id"]:
+        if "created_at" not in self.user_id_by_session_id[session_id]:
             return None
         date_limit = (timedelta(seconds=self.session_duration) +
                       self.user_id_by_session_id[session_id]["created_at"])
