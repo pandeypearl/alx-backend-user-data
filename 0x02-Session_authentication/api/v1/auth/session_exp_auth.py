@@ -18,6 +18,7 @@ class SessionExpAuth(SessionAuth):
         """
         Constructor function
         """
+        duration = os.getenv('SESSION_DURATION')
         try:
             if not duration:
                 self.session_duration = 0
@@ -41,12 +42,15 @@ class SessionExpAuth(SessionAuth):
         return session_id
 
     def user_id_for_session_id(self, session_id=None):
+        """
+        Returns user_id from the session dictionary
+        """
         if not session_id or session_id not in self.user_id_by_session_id:
             return None
         if self.session_duration <= 0:
             return self.user_id_by_sesssion_id[session_id]["user_id"]
         if "created_at" not in self.user_id_by_session_id["session_id"]:
-            return None
+            return Nonei
         date_limit = (timedelta(seconds=self.session_duration) +
                       self.user_id_by_session_id[session_id]["created_at"])
         if date_limit < datetime.now():
