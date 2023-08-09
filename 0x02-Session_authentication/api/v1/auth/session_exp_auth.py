@@ -38,7 +38,7 @@ class SessionExpAuth(SessionAuth):
             "user_id": user_id,
             "created_at": datetime.now()
         }
-        self.uer_id_by_session_id[session_id] = session_directory
+        self.user_id_by_session_id[session_id] = session_directory
         return session_id
 
     def user_id_for_session_id(self, session_id=None):
@@ -50,7 +50,7 @@ class SessionExpAuth(SessionAuth):
         if self.session_duration <= 0:
             return self.user_id_by_sesssion_id[session_id]["user_id"]
         if "created_at" not in self.user_id_by_session_id["session_id"]:
-            return Nonei
+            return None
         date_limit = (timedelta(seconds=self.session_duration) +
                       self.user_id_by_session_id[session_id]["created_at"])
         if date_limit < datetime.now():
